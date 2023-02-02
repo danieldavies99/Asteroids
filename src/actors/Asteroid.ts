@@ -65,7 +65,7 @@ export class Asteroid extends Actor {
 
     this.rotationAmount = -0.015 + (Math.random() * 0.03)
 
-    this.bearingToTarget = this.pos.bearingTo(target.pos)
+    this.bearingToTarget = this.pos.bearingTo(target.pos) + (-0.15 + Math.random()*0.3)
     this.dx = velocity * Math.cos(this.bearingToTarget - Math.PI * 0.5)
     this.dy = velocity * Math.sin(this.bearingToTarget - Math.PI * 0.5) 
   }

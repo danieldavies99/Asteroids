@@ -151,13 +151,19 @@ export class Engine {
   }
 
   private removeAllActors = () => {
-    this.actors.forEach(actor => this.remove(actor))
+    this.actors.forEach(actor => {
+      if(actor.graphicLayer) {
+        const graphicLayer = this.findGraphicLayer(actor.graphicLayer)
+        graphicLayer?.remove(actor.graphics)
+      } else {
+        this.two.remove(actor.graphics)
+      }
+    })
+    this.actors = [];
   }
 
   private removeAllGraphicLayers = () => {
-    console.log(this.graphicLayers)
     this.graphicLayers.forEach(graphicLayer => {
-      console.log("removing layer:", graphicLayer.name)
       this.two.remove(graphicLayer.group) 
     })
     this.graphicLayers = []
