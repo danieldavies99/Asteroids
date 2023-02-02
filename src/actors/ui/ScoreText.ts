@@ -5,12 +5,10 @@ import { Vector } from "../../engine/Vector";
 export class ScoreText extends Actor{
   pos: Vector
 
-  score: number
   scoreTextSprite: Text
 
   constructor (startPos: Vector) {
     super()
-    this.score = 0
 
     this.scoreTextSprite = new Text('000000', 0, 0)
     this.scoreTextSprite.size = 18
@@ -27,7 +25,6 @@ export class ScoreText extends Actor{
   }
 
   setScore = (score: number) => {
-    this.score = score;
     this.scoreTextSprite.value = String(score).padStart(6, '0')
   }
 }

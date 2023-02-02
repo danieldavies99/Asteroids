@@ -1,8 +1,7 @@
 import { Arrow } from "../actors/Arrow";
 import { Background } from "../actors/Background";
 import { HealthBar } from "../actors/ui/HealthBar";
-import { ScoreText } from "../actors/ui/ScoreText";
-import { TopRightBox } from "../actors/ui/TopRightBox";
+import { Score } from "../actors/ui/Score";
 import { Engine } from "../engine/Engine";
 import { Scene } from "../engine/Scene";
 import { Timer } from "../engine/Timer";
@@ -22,7 +21,7 @@ export class Level extends Scene {
   private bulletTracker: BulletTracker
   private asteroidTracker: AsteroidTracker
 
-  private scoreText: ScoreText
+  private score: Score
   private healthBar: HealthBar
 
   private mousePos: Vector
@@ -48,17 +47,17 @@ export class Level extends Scene {
 
   initializeUi = (engine: Engine) => {
     // create UI elements
-    const topRight = new TopRightBox(new Vector(0, 0));
-    this.scoreText = new ScoreText(new Vector(37, 16))
     this.healthBar = new HealthBar(
       new Vector(
         engine.getWidth() - 70,
         0
       )
     )
+    this.score = new Score(
+      new Vector(0,0)
+    )
     engine.add(this.healthBar, 'UI')
-    engine.add(topRight, 'UI')
-    engine.add(this.scoreText, 'UI')
+    engine.add(this.score, 'UI')
   }
 
   initializePlayer = (engine: Engine) => {
@@ -142,7 +141,7 @@ export class Level extends Scene {
           if (asteroid.health < 1) {
             this.asteroidTracker.removeAsteroid(asteroid)
             engine.remove(asteroid)
-            this.scoreText.setScore(this.scoreText.score + 1)
+            this.score.setScore(this.score.score + 1)
           }
         }
       })
@@ -169,8 +168,8 @@ export class Level extends Scene {
           const currentHighScore: number = engine.getState().highScore
 
           engine.setState({
-            lastScore: this.scoreText.score,
-            highScore: this.scoreText.score > currentHighScore ? this.scoreText.score : currentHighScore
+            lastScore: this.score.score,
+            highScore: this.score.score > currentHighScore ? this.score.score : currentHighScore
           })
 
           engine.startScene('gameOver')
