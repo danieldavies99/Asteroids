@@ -22,9 +22,7 @@ export class Level extends Scene {
   private healthBar: HealthBar
 
   private mousePos: Vector
-
   private player: Arrow
-
 
   onInit = (engine: Engine) => {
     // define rendering layers
@@ -58,25 +56,9 @@ export class Level extends Scene {
     this.player = new Arrow(new Vector(engine.getHalfWidth(), engine.getHalfHeight()))
     engine.add(this.player, 'foreground')
 
-    // asteroid spawning
     this.asteroidTracker = new AsteroidTracker()
-    setInterval(() => {
-      const pos = this.player.pos.getRandomPointAtDistance(500)
-      const asteroid = this.asteroidTracker.newAsteroid(pos, this.player)
-      engine.add(asteroid, 'foreground')
-    }, 1500)
-
-    // bullet spawning
     this.bulletTracker = new BulletTracker()
-    setInterval(() => {
-      const bullet = this.bulletTracker.newBullet(
-        this.player.pos,
-        this.player.getRotation() + (-0.1 + Math.random() * 0.2)
-      )
-      engine.add(bullet, 'bullets')
-    }, 200)
 
-    // initialize mousePos variable
     this.mousePos = new Vector(0, 0)
 
     engine.onPointerMove(evt => {
@@ -130,8 +112,28 @@ export class Level extends Scene {
         this.healthBar.setHealth(this.healthBar.health - 1)
         this.asteroidTracker.removeAsteroid(asteroid)
         engine.remove(asteroid)
+        if(this.healthBar.health < 1) {
+          engine.startScene('gameOver')
+        }
       }
     })
+
+    // spawn bullets
+    if(this.bulletTracker.shouldSpawnNewBullet(frameCount)) {
+      const bullet = this.bulletTracker.newBullet(
+        this.player.pos,
+        this.player.getRotation() + (-0.1 + Math.random() * 0.2),
+        frameCount
+      )
+      engine.add(bullet, 'bullets')
+    }
+
+    // spawn asteroids 
+    if(this.asteroidTracker.shouldSpawnNewAsteroid(frameCount)) {
+      const pos = this.player.pos.getRandomPointAtDistance(500)
+      const asteroid = this.asteroidTracker.newAsteroid(pos, this.player, frameCount)
+      engine.add(asteroid, 'foreground')
+    }
 
     this.player.rotateTowards(this.mousePos, 0.005, delta, 0.1)
   }

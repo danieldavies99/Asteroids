@@ -4,13 +4,19 @@ import { Vector } from "../engine/Vector";
 
 export class AsteroidTracker {
   private asteroids: Asteroid[]
+  private lastAsteroidSpawnedAt: number
+  private asteroidSpawnInterval: number
 
   constructor () {
     this.asteroids = [];
+    this.asteroidSpawnInterval = 100
+    this.lastAsteroidSpawnedAt = 0;
   }
+
   newAsteroid = (
     pos: Vector,
-    target: Arrow
+    target: Arrow,
+    framesElapsed: number
   ): Asteroid => {
     const asteroid = new Asteroid(
         pos,
@@ -18,8 +24,17 @@ export class AsteroidTracker {
         0.1
     )
     this.asteroids.push(asteroid)
+    this.lastAsteroidSpawnedAt = framesElapsed
     return asteroid;
   }
+
+  shouldSpawnNewAsteroid = (framesElapsed: number): boolean => {
+    if (framesElapsed - this.lastAsteroidSpawnedAt >= this.asteroidSpawnInterval) {
+      return true;
+    }
+    return false
+  }
+
 
   removeAsteroid = (asteroid: Asteroid) => {
     const index = this.asteroids.findIndex(searchAsteroid => searchAsteroid.uuid === asteroid.uuid)

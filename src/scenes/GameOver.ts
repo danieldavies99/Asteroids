@@ -6,11 +6,11 @@ import { Scene } from "../engine/Scene";
 import { Vector } from "../engine/Vector";
 import Colors from "../utils/Colors";
 
-export class Start extends Scene {
+export class GameOver extends Scene {
   name: string
 
   constructor() {
-    super('start')
+    super('gameOver')
   }
 
   public onInit = (engine: Engine) => {
@@ -22,11 +22,11 @@ export class Start extends Scene {
     const title = new GameTitle(new Vector(engine.getHalfWidth(), engine.getHalfHeight() - 50))
     engine.add(title)
 
-    const clickToStart = new PromptText(
+    const clickToRestart = new PromptText(
       new Vector(engine.getHalfWidth(), engine.getHalfHeight()),
-      'CLICK TO START'
+      'CLICK TO PLAY AGAIN'
     )
-    engine.add(clickToStart)
+    engine.add(clickToRestart)
   }
 
   public onUpdate = (frameCount: number, delta: number, engine: Engine) => {
