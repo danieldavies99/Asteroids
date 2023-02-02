@@ -45,6 +45,8 @@ export class RenderingLayer {
    * @return  {void}              void
    */
   remove = (element: Element): void => {
+    // @ts-ignore
     this.group.remove(element)
   }
 }
+
