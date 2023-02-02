@@ -1,4 +1,4 @@
-import { Engine } from "./Engine";
+import type { Engine } from "./Engine";
 
 
 export class Scene {

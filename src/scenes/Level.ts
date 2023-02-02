@@ -205,7 +205,8 @@ export class Level extends Scene {
    */
   spawnAsteroids = (engine: Engine) => {
     if(this.asteroidTracker.shouldSpawnNewAsteroid(this.timer.getElapsed())) {
-      const pos = this.player.pos.getRandomPointAtDistance(500)
+      const distance = engine.getHalfWidth() + 30 > 500 ? engine.getHalfWidth() + 30 : 500
+      const pos = this.player.pos.getRandomPointAtDistance(distance)
       const asteroid = this.asteroidTracker.newAsteroid(pos, this.player, this.timer.getElapsed())
       engine.add(asteroid, 'foreground')
     }
