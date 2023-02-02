@@ -33,11 +33,12 @@ export class Level extends Scene {
     this.timeElapsed = 0;
     this.startTime = Date.now()
     this.asteroidIntervalLastUpdatedAt = 0;
+
     // define rendering layers
-    engine.addGraphicLayer('background')
-    engine.addGraphicLayer('bullets')
-    engine.addGraphicLayer('foreground')
-    engine.addGraphicLayer('UI')
+    engine.addRenderingLayer('background')
+    engine.addRenderingLayer('bullets')
+    engine.addRenderingLayer('foreground')
+    engine.addRenderingLayer('UI')
 
     // create black background
     const bg = new Background(
