@@ -8,12 +8,12 @@ export class BulletTracker {
 
   constructor () {
     this.bullets = [];
-    this.bulletInterval = 15;
+    this.bulletInterval = 100;
     this.lastBulletSpawnedAt = 0;
   }
 
-  shouldSpawnNewBullet = (framesElapsed: number): boolean => {
-    if (framesElapsed - this.lastBulletSpawnedAt >= this.bulletInterval) {
+  shouldSpawnNewBullet = (timeElapsed: number): boolean => {
+    if (timeElapsed - this.lastBulletSpawnedAt >= this.bulletInterval) {
       return true;
     }
     return false
@@ -22,13 +22,13 @@ export class BulletTracker {
   newBullet = (
     pos: Vector,
     rotation: number,
-    framesElapsed: number
+    timeElapsed: number
   ): Bullet => {
 
     const bullet = new Bullet(pos,rotation)    
     bullet.hideSprite()
     this.bullets.push(bullet)
-    this.lastBulletSpawnedAt = framesElapsed
+    this.lastBulletSpawnedAt = timeElapsed
     return bullet
   }
 

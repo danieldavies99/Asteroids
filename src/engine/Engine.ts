@@ -72,18 +72,6 @@ export class Engine {
     this.two.add(this.graphicLayers[this.graphicLayers.length - 1].group)
   }
 
-  // public removeGraphicLayer = (name: string): void => {
-  //   console.log('removingGraphicLayer', name)
-  //   const index = this.graphicLayers.findIndex(layer => layer.name === name);
-  //   if(index < 0) {
-  //     console.error('could not remove graphic layer, name not found')
-  //     return;
-  //   }
-
-  //   this.two.remove(this.graphicLayers[index].group)
-  //   this.graphicLayers.splice(index, 1)
-  // }
-
   private findGraphicLayer = (name: string): GraphicLayer | undefined => {
     return this.graphicLayers.find(layer => layer.name === name)
   }

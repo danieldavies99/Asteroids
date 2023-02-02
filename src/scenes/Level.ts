@@ -15,6 +15,11 @@ export class Level extends Scene {
     super('level')
   }
 
+  private startTime: number
+  private timeElapsed: number
+
+  private asteroidIntervalLastUpdatedAt: number
+
   private bulletTracker: BulletTracker
   private asteroidTracker: AsteroidTracker
 
@@ -25,6 +30,9 @@ export class Level extends Scene {
   private player: Arrow
 
   onInit = (engine: Engine) => {
+    this.timeElapsed = 0;
+    this.startTime = Date.now()
+    this.asteroidIntervalLastUpdatedAt = 0;
     // define rendering layers
     engine.addGraphicLayer('background')
     engine.addGraphicLayer('bullets')
@@ -66,11 +74,18 @@ export class Level extends Scene {
     })
   }
 
+  private updateTime = () => {
+    this.timeElapsed = Date.now() - this.startTime
+  }
+
   public onUpdate = (
     frameCount: number,
     delta: number,
     engine: Engine
   ) => {
+    // update time
+    this.updateTime();
+
     //  handle bullet show/hide/remove
     this.bulletTracker.getBullets().forEach((bullet, bulletIndex) => {
       // remove bullet if off screen
@@ -126,22 +141,28 @@ export class Level extends Scene {
     })
 
     // spawn bullets
-    if(this.bulletTracker.shouldSpawnNewBullet(frameCount)) {
+    if(this.bulletTracker.shouldSpawnNewBullet(this.timeElapsed)) {
       const bullet = this.bulletTracker.newBullet(
         this.player.pos,
         this.player.getRotation() + (-0.1 + Math.random() * 0.2),
-        frameCount
+        this.timeElapsed
       )
       engine.add(bullet, 'bullets')
     }
 
     // spawn asteroids 
-    if(this.asteroidTracker.shouldSpawnNewAsteroid(frameCount)) {
+    if(this.asteroidTracker.shouldSpawnNewAsteroid(this.timeElapsed)) {
       const pos = this.player.pos.getRandomPointAtDistance(500)
-      const asteroid = this.asteroidTracker.newAsteroid(pos, this.player, frameCount)
+      const asteroid = this.asteroidTracker.newAsteroid(pos, this.player, this.timeElapsed)
       engine.add(asteroid, 'foreground')
     }
 
     this.player.rotateTowards(this.mousePos, 0.005, delta, 0.1)
+
+    // increase asteroid spawn rate every 8 seconds by 5 percent of current spawn rate
+    if(this.timeElapsed - this.asteroidIntervalLastUpdatedAt> 8000) {
+      this.asteroidTracker.setSpawnInterval(this.asteroidTracker.getSpawnInterval()*0.95)
+      this.asteroidIntervalLastUpdatedAt = this.timeElapsed
+    }
   }
 }

@@ -11,6 +11,7 @@ engine.defineScenes([
   new Level(),
   new GameOver(),
 ])
+
 engine.setState(defaultState)
 engine.startScene('start')
 engine.start();

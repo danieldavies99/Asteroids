@@ -9,14 +9,14 @@ export class AsteroidTracker {
 
   constructor () {
     this.asteroids = [];
-    this.asteroidSpawnInterval = 100
+    this.asteroidSpawnInterval = 1200
     this.lastAsteroidSpawnedAt = 0;
   }
 
   newAsteroid = (
     pos: Vector,
     target: Arrow,
-    framesElapsed: number
+    timeElapsed: number
   ): Asteroid => {
     const asteroid = new Asteroid(
         pos,
@@ -24,12 +24,12 @@ export class AsteroidTracker {
         0.1
     )
     this.asteroids.push(asteroid)
-    this.lastAsteroidSpawnedAt = framesElapsed
+    this.lastAsteroidSpawnedAt = timeElapsed
     return asteroid;
   }
 
-  shouldSpawnNewAsteroid = (framesElapsed: number): boolean => {
-    if (framesElapsed - this.lastAsteroidSpawnedAt >= this.asteroidSpawnInterval) {
+  shouldSpawnNewAsteroid = (timeElapsed: number): boolean => {
+    if (timeElapsed - this.lastAsteroidSpawnedAt >= this.asteroidSpawnInterval) {
       return true;
     }
     return false
@@ -46,5 +46,13 @@ export class AsteroidTracker {
 
   getAsteroids = (): Asteroid[] => {
     return this.asteroids;
+  }
+
+  getSpawnInterval = (): number => {
+    return this.asteroidSpawnInterval
+  }
+
+  setSpawnInterval = (interval: number) => {
+    this.asteroidSpawnInterval = interval
   }
 }
