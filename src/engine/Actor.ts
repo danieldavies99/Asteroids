@@ -33,6 +33,7 @@ export class Actor {
    */
   constructor() {
     this.uuid = uuidv4()
+    this.graphics = new Group()
   }
 
   /**
@@ -45,5 +46,5 @@ export class Actor {
    *
    * @return  {void}                void
    */
-  public onUpdate = (frameCount: number, delta: number): void => {}
+  public onUpdate = (_frameCount: number, _delta: number): void => {}
 }

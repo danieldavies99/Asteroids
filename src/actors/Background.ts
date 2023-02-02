@@ -1,6 +1,5 @@
 import { Rectangle } from "two.js/src/shapes/rectangle";
 import { Actor } from "../engine/Actor";
-import Colors from "../utils/Colors";
 
 export class Background extends Actor {
   constructor(width: number, height: number, color: string) {

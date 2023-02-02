@@ -7,7 +7,6 @@ import { Vector } from "../engine/Vector";
 import Colors from "../utils/Colors";
 
 export class Start extends Scene {
-  name: string
 
   constructor() {
     super('start')
@@ -29,6 +28,6 @@ export class Start extends Scene {
     engine.add(clickToStart)
   }
 
-  public onUpdate = (frameCount: number, delta: number, engine: Engine) => {
+  public onUpdate = (_frameCount: number, _delta: number, _engine: Engine) => {
   }
 }

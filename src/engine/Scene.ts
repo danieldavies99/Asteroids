@@ -29,7 +29,7 @@ export class Scene {
    *
    * @return  {void}            void
    */
-  public onInit = (engine: Engine): void => {}
+  public onInit = (_engine: Engine): void => {}
 
   /**
   * Can be overwritten by child classes,
@@ -42,5 +42,5 @@ export class Scene {
    *
    * @return  {void}              void
    */
-  public onUpdate = (frameCount: number, delta: number, engine: Engine): void => {}
+  public onUpdate = (_frameCount: number, _delta: number, _engine: Engine): void => {}
 }

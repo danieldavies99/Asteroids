@@ -15,6 +15,8 @@ export class ScoreText extends Actor{
     this.scoreTextSprite.weight = 700
 
     this.graphics = this.scoreTextSprite
+
+    this.pos = new Vector(0,0)
     this.setPos(startPos)
   }
 

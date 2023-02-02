@@ -38,8 +38,10 @@ export class Bullet extends Actor {
     this.graphics = this.spriteGroup;
     this.spriteGroup.scale = 0.7
 
-
+    this.pos = new Vector(0,0)
     this.setPos(startPos)
+
+    this.rotation = 0;
     this.setRotation(rotation)
 
     const totalVel = 0.5
@@ -100,7 +102,7 @@ export class Bullet extends Actor {
       || this.pos.x < 0
   }
 
-  onUpdate = (frameCount: number, delta: number) => {
+  onUpdate = (_frameCount: number, delta: number) => {
     this.setPos(
       new Vector(
         this.pos.x + (this.dx * delta),

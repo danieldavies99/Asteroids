@@ -43,10 +43,10 @@ export class Engine {
    */
   private state: any
 
-  private pointerDown: (evt: PointerEvent) => void
-  private pointerUp: (evt: PointerEvent) => void
-  private pointerMove: (evt: PointerEvent) => void
-  private keyDown: (evt: KeyboardEvent) => void
+  private pointerDown: ((evt: PointerEvent) => void) | undefined
+  private pointerUp: ((evt: PointerEvent) => void) | undefined
+  private pointerMove: ((evt: PointerEvent) => void) | undefined
+  private keyDown: ((evt: KeyboardEvent) => void) | undefined
 
   /**
    * Stores actor states,
@@ -62,6 +62,7 @@ export class Engine {
     this.two = this.initializeTwo()
     this.actors = [];
     this.renderingLayers = [];
+    this.scenes = [];
   }
 
   /**
@@ -299,10 +300,14 @@ export class Engine {
    * @return  {void}  void
    */
   private removeAllListeners = (): void => {
-    document.removeEventListener('pointerdown', this.pointerDown)
-    document.removeEventListener('pointerup', this.pointerUp)
-    document.removeEventListener('pointermove', this.pointerMove)
-    document.removeEventListener('keydown', this.keyDown)
+    if(this.pointerDown)
+      document.removeEventListener('pointerdown', this.pointerDown)
+    if(this.pointerUp)
+      document.removeEventListener('pointerup', this.pointerUp)
+    if(this.pointerMove)
+      document.removeEventListener('pointermove', this.pointerMove)
+    if(this.keyDown)
+      document.removeEventListener('keydown', this.keyDown)
   }
 
   /**

@@ -61,6 +61,7 @@ export class Asteroid extends Actor {
     this.spriteGroup.scale = 0.7
     this.health = 3;
 
+    this.pos = new Vector(0,0)
     this.setPos(startPos)
 
     this.rotationAmount = -0.015 + (Math.random() * 0.03)
@@ -90,7 +91,7 @@ export class Asteroid extends Actor {
     this.graphics.position.y = this.pos.y
   }
 
-  onUpdate = (frameCount: number, delta: number) => {
+  onUpdate = (_frameCount: number, delta: number) => {
     // console.log(this.rotationAmount)
     this.setPos(
       new Vector(

@@ -42,6 +42,7 @@ export class TopLeftBox extends Actor {
     this.graphics = this.spriteGroup;
     this.spriteGroup.scale = 0.7
 
+    this.pos = new Vector(0,0)
     this.setPos(startPos)
   }
 
@@ -65,5 +66,5 @@ export class TopLeftBox extends Actor {
     this.graphics.position.y = this.pos.y
   }
 
-  onUpdate = (frameCount: number, delta: number) => {};
+  onUpdate = (_frameCount: number, _delta: number) => {};
 }

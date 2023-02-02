@@ -7,8 +7,6 @@ import { Vector } from "../engine/Vector";
 import Colors from "../utils/Colors";
 
 export class GameOver extends Scene {
-  name: string
-
   constructor() {
     super('gameOver')
   }
@@ -41,6 +39,6 @@ export class GameOver extends Scene {
     engine.add(clickToRestart)
   }
 
-  public onUpdate = (frameCount: number, delta: number, engine: Engine) => {
+  public onUpdate = (_frameCount: number, _delta: number, _engine: Engine) => {
   }
 }

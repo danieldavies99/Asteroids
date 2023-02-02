@@ -1,8 +1,5 @@
-import { Anchor } from "two.js/src/anchor";
 import { Group } from "two.js/src/group";
-import { Path } from "two.js/src/path";
 import { Text } from "two.js/src/text";
-import { textChangeRangeIsUnchanged } from "typescript";
 
 import { Actor } from "../../engine/Actor";
 import { Vector } from "../../engine/Vector";
@@ -36,6 +33,7 @@ export class GameTitle extends Actor {
     this.graphics = this.spriteGroup;
     this.spriteGroup.scale = 0.7
 
+    this.pos = new Vector(0,0)
     this.setPos(startPos)
   }
 
@@ -45,10 +43,8 @@ export class GameTitle extends Actor {
   ): Text => {
     const sprite = new Text('ASTEROIDS', 0,0)
     sprite.size = 80
-    // sprite.noFill()
     sprite.stroke = color
     sprite.linewidth = 3
-    // sprite.join = 'round'
     sprite.position.x += offset
     return sprite
   }
@@ -59,5 +55,5 @@ export class GameTitle extends Actor {
     this.graphics.position.y = this.pos.y
   }
 
-  onUpdate = (frameCount: number, delta: number) => {};
+  onUpdate = (_frameCount: number, _delta: number) => {};
 }

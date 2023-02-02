@@ -15,17 +15,17 @@ export class Level extends Scene {
     super('level')
   }
 
-  private timer: Timer
-  private asteroidIntervalLastUpdatedAt: number
+  private timer: Timer = new Timer(0)
+  private asteroidIntervalLastUpdatedAt: number = 0
 
-  private bulletTracker: BulletTracker
-  private asteroidTracker: AsteroidTracker
+  private bulletTracker: BulletTracker = new BulletTracker()
+  private asteroidTracker: AsteroidTracker = new AsteroidTracker()
 
-  private score: Score
-  private healthBar: HealthBar
+  private score: Score = new Score(new Vector(0,0))
+  private healthBar: HealthBar = new HealthBar(new Vector(0,0))
 
-  private mousePos: Vector
-  private player: Arrow
+  private mousePos: Vector = new Vector(0,0)
+  private player: Arrow = new Arrow(new Vector(0,0))
 
   initializeRenderingLayers = (engine: Engine) => {
     // define rendering layers
@@ -93,7 +93,7 @@ export class Level extends Scene {
    * @return  {void}            void
    */
   removeOutOfBoundsBullets = (engine: Engine): void => {
-    this.bulletTracker.getBullets().forEach((bullet, bulletIndex) => {
+    this.bulletTracker.getBullets().forEach((bullet, _bulletIndex) => {
       // remove bullet if off screen
       if (
         bullet.isOffScreen(engine.getWidth(), engine.getHeight())
@@ -226,7 +226,7 @@ export class Level extends Scene {
   }
 
   public onUpdate = (
-    frameCount: number,
+    _frameCount: number,
     delta: number,
     engine: Engine
   ) => {
