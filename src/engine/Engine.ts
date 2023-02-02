@@ -11,6 +11,8 @@ export class Engine {
 
   private scenes: Scene[]
 
+  private state: any
+
   private pointerDown: (evt: PointerEvent) => void
   private pointerUp: (evt: PointerEvent) => void
   private pointerMove: (evt: PointerEvent) => void
@@ -70,16 +72,17 @@ export class Engine {
     this.two.add(this.graphicLayers[this.graphicLayers.length - 1].group)
   }
 
-  public removeGraphicLayer = (name: string): void => {
-    const index = this.graphicLayers.findIndex(layer => layer.name === name);
-    if(index < 0) {
-      console.error('could not layer actor, name not found')
-      return;
-    }
+  // public removeGraphicLayer = (name: string): void => {
+  //   console.log('removingGraphicLayer', name)
+  //   const index = this.graphicLayers.findIndex(layer => layer.name === name);
+  //   if(index < 0) {
+  //     console.error('could not remove graphic layer, name not found')
+  //     return;
+  //   }
 
-    this.two.remove(this.graphicLayers[index].group)
-    this.graphicLayers.splice(index, 1)
-  }
+  //   this.two.remove(this.graphicLayers[index].group)
+  //   this.graphicLayers.splice(index, 1)
+  // }
 
   private findGraphicLayer = (name: string): GraphicLayer | undefined => {
     return this.graphicLayers.find(layer => layer.name === name)
@@ -152,7 +155,12 @@ export class Engine {
   }
 
   private removeAllGraphicLayers = () => {
-    this.graphicLayers.forEach(graphicLayer => this.removeGraphicLayer(graphicLayer.name))
+    console.log(this.graphicLayers)
+    this.graphicLayers.forEach(graphicLayer => {
+      console.log("removing layer:", graphicLayer.name)
+      this.two.remove(graphicLayer.group) 
+    })
+    this.graphicLayers = []
   }
 
   public startScene = (sceneName: string) => {
@@ -166,5 +174,13 @@ export class Engine {
     }
     scene.onInit(this)
     this.onUpdate(scene.onUpdate)
+  }
+
+  getState = (): any => {
+    return this.state;
+  }
+
+  setState = (state: any) => {
+    this.state = state
   }
 }

@@ -112,7 +112,14 @@ export class Level extends Scene {
         this.healthBar.setHealth(this.healthBar.health - 1)
         this.asteroidTracker.removeAsteroid(asteroid)
         engine.remove(asteroid)
-        if(this.healthBar.health < 1) {
+        if(this.healthBar.health < 1) { // game over
+          const currentHighScore: number = engine.getState().highScore
+
+          engine.setState({
+            lastScore: this.scoreText.score,
+            highScore: this.scoreText.score > currentHighScore ? this.scoreText.score : currentHighScore
+          })
+
           engine.startScene('gameOver')
         }
       }

@@ -22,8 +22,20 @@ export class GameOver extends Scene {
     const title = new GameTitle(new Vector(engine.getHalfWidth(), engine.getHalfHeight() - 50))
     engine.add(title)
 
-    const clickToRestart = new PromptText(
+    const score = new PromptText(
       new Vector(engine.getHalfWidth(), engine.getHalfHeight()),
+      'SCORE: ' + engine.getState().lastScore
+    )
+    engine.add(score)
+
+    const highScore = new PromptText(
+      new Vector(engine.getHalfWidth(), engine.getHalfHeight() + 30),
+      'HIGH SCORE: ' + engine.getState().highScore
+    )
+    engine.add(highScore)
+
+    const clickToRestart = new PromptText(
+      new Vector(engine.getHalfWidth(), engine.getHalfHeight() + 80),
       'CLICK TO PLAY AGAIN'
     )
     engine.add(clickToRestart)

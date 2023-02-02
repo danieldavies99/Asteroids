@@ -45,11 +45,7 @@ export class PromptText extends Actor {
     const sprite = new Text(message, 0,0)
     sprite.size = 40
     sprite.fill = color;
-    // sprite.noFill()
-    // sprite.stroke = color
-    // sprite.linewidth = 3
     sprite.noStroke()
-    // sprite.join = 'round'
     sprite.position.x += offset
     return sprite
   }
